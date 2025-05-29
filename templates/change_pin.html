@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Cambio PIN{% endblock %}
+{% block content %}
+<form method="post">
+    <label>PIN attuale:<br><input type="password" name="old_pin" required></label><br>
+    <label>Nuovo PIN:<br><input type="password" name="new_pin" required></label><br>
+    <label>Conferma nuovo PIN:<br><input type="password" name="confirm_pin" required></label><br>
+    <input type="submit" value="Cambia PIN">
+</form>
+{% endblock %}

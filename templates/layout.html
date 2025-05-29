@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Bancomat{% endblock %}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        nav a { margin: 0 10px; }
+        table { border-collapse: collapse; width: 100%; max-width: 800px;}
+        table, th, td { border: 1px solid black; padding: 5px; }
+        th { background-color: #ddd; }
+        .flash { color: red; }
+        input[type="text"], input[type="password"], input[type="number"] {
+            padding: 5px; width: 200px; margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            padding: 7px 15px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        {% if session.user %}
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('withdraw') }}">Prelievo</a>
+            <a href="{{ url_for('deposit') }}">Deposito</a>
+            <a href="{{ url_for('deposit_checks') }}">Deposito assegni</a>
+            <a href="{{ url_for('transfer') }}">Bonifici</a>
+            <a href="{{ url_for('payments') }}">Pagamenti</a>
+            <a href="{{ url_for('recharge_phone') }}">Ricarica cellulare</a>
+            <a href="{{ url_for('foreign_currency_withdraw') }}">Prelievo valuta estera</a>
+            <a href="{{ url_for('prepaid_card_recharge') }}">Ricarica carta prepagata</a>
+            <a href="{{ url_for('change_pin') }}">Cambia PIN</a>
+            <a href="{{ url_for('block_card') }}">Blocca carta</a>
+            <a href="{{ url_for('info') }}">Info saldo/plafond</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
+    </nav>
+
+    <h1>{% block title %}Bancomat{% endblock %}</h1>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flash">
+        {% for msg in messages %}
+          <li>{{ msg }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</body>
+</html>

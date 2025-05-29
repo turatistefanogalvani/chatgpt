@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Prelievo valuta estera{% endblock %}
+{% block content %}
+<form method="post">
+    <label>Valuta:
+        <select name="currency" required>
+            {% for c in rates.keys() %}
+            <option value="{{ c }}">{{ c }}</option>
+            {% endfor %}
+        </select>
+    </label><br>
+    <label>Importo (valuta selezionata):<br><input type="number" step="0.01" name="amount" required></label><br>
+    <input type="submit" value="Preleva">
+</form>
+{% endblock %}

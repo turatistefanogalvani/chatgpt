@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}Estratto conto{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Tipo</th>
+            <th>Descrizione</th>
+            <th>Importo (€)</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% if transactions %}
+        {% for t in transactions %}
+        <tr>
+            <td>{{ t.date }}</td>
+            <td>{{ t.type }}</td>
+            <td>{{ t.description }}</td>
+            <td class="{% if t.amount < 0 %}negative{% else %}positive{% endif %}">
+                {{ "%.2f"|format(t.amount) }}
+            </td>
+        </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="4" style="text-align: center;">Nessuna transazione</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+{% endblock %}

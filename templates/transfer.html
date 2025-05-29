@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Bonifico{% endblock %}
+{% block content %}
+<form method="post">
+    <label>Destinatario (username):<br><input type="text" name="destinatario" required></label><br>
+    <label>Importo (€):<br><input type="number" step="0.01" name="amount" required></label><br>
+    <p>Commissione bonifico: € 1.50</p>
+    <input type="submit" value="Invia bonifico">
+</form>
+{% endblock %}
