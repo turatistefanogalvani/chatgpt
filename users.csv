@@ -1,3 +1,6 @@
-pin,name,balance
-1234,Marco Rossi,1000.0
-5678,Luca Bianchi,500.0
+pin,name,balance,blocked
+1234,Mario Rossi,267.0,0
+5678,Luca Bianchi,1123.0,0
+9101,Giulia Verdi,500.0,1
+1122,Marco Neri,1233.0,0
+3344,Anna Gallo,250.0,0

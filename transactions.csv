@@ -1,0 +1,7 @@
+pin,date,type,description,amount
+1234,2025-05-30 10:33:09,Deposito,Deposito contanti,123.0
+1234,2025-05-30 10:33:25,Bonifico inviato,A 5678,-123.0
+5678,2025-05-30 10:33:25,Bonifico ricevuto,Da 1234,123.0
+1234,2025-05-30 10:38:16,Deposito,Deposito contanti,1000.0
+1234,2025-05-30 10:39:42,Bonifico inviato,A 1122,-1233.0
+1122,2025-05-30 10:39:42,Bonifico ricevuto,Da 1234,1233.0

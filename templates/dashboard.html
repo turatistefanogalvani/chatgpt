@@ -4,38 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - {{ user.name }}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .saldo-box {
+            font-size: 2rem;
+            font-weight: bold;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .status-badge {
+            font-size: 1rem;
+            padding: 0.5em 1em;
+            border-radius: 20px;
+        }
+        .nav-btns .btn {
+            min-width: 150px;
+            margin-bottom: 0.5rem;
+        }
+        @media (max-width: 576px) {
+            .saldo-box { font-size: 1.2rem; padding: 1rem; }
+            .nav-btns .btn { min-width: 100%; }
+        }
+    </style>
 </head>
-<body>
-    <div class="container mt-5">
-        <div class="card shadow-lg">
-            <div class="card-header bg-primary text-white">
-                <h4>Benvenuto, {{ user.name }}</h4>
-            </div>
-            <div class="card-body">
-                <p><strong>Saldo attuale:</strong> €{{ user.balance }}</p>
-                <form action="/deposit" method="post" class="mb-3">
-                    <div class="mb-3">
-                        <label for="depositAmount" class="form-label">Deposita importo</label>
-                        <input type="number" class="form-control" id="depositAmount" name="amount" required>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-9">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Ciao, {{ user.name }}</h4>
+                        {% if user.blocked %}
+                            <span class="status-badge bg-danger text-white">Carta bloccata</span>
+                        {% else %}
+                            <span class="status-badge bg-success text-white">Carta attiva</span>
+                        {% endif %}
                     </div>
-                    <button type="submit" class="btn btn-success">Deposita</button>
-                </form>
-                <form action="/withdraw" method="post" class="mb-3">
-                    <div class="mb-3">
-                        <label for="withdrawAmount" class="form-label">Preleva importo</label>
-                        <input type="number" class="form-control" id="withdrawAmount" name="amount" required>
+                    <div class="card-body">
+                        <div class="saldo-box text-center mb-4">
+                            Saldo attuale: <span class="text-primary">€{{ '%.2f'|format(user.balance) }}</span>
+                        </div>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <form action="/deposit" method="post" class="p-3 border rounded bg-white shadow-sm">
+                                    <h6 class="mb-3 text-success">Deposita</h6>
+                                    <div class="mb-2">
+                                        <input type="number" step="0.01" min="0.01" class="form-control" name="amount" placeholder="Importo" required {% if user.blocked %}disabled{% endif %}>
+                                    </div>
+                                    <button type="submit" class="btn btn-success w-100" {% if user.blocked %}disabled{% endif %}>Deposita</button>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <form action="/withdraw" method="post" class="p-3 border rounded bg-white shadow-sm">
+                                    <h6 class="mb-3 text-danger">Preleva</h6>
+                                    <div class="mb-2">
+                                        <input type="number" step="0.01" min="0.01" class="form-control" name="amount" placeholder="Importo" required {% if user.blocked %}disabled{% endif %}>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger w-100" {% if user.blocked %}disabled{% endif %}>Preleva</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="nav-btns d-flex flex-wrap gap-2 justify-content-center mb-3">
+                            <a href="{{ url_for('transfer') }}" class="btn btn-info">Bonifico</a>
+                            <a href="{{ url_for('transactions') }}" class="btn btn-outline-primary">Estratto conto</a>
+                            <a href="{{ url_for('block_card') }}" class="btn btn-outline-warning">
+                                {% if user.blocked %}Sblocca carta{% else %}Blocca carta{% endif %}
+                            </a>
+                            <a href="{{ url_for('logout') }}" class="btn btn-secondary">Esci</a>
+                        </div>
+                        {% if user.blocked %}
+                        <div class="alert alert-warning text-center mt-3 mb-0">
+                            <strong>Attenzione:</strong> La carta è bloccata. Tutte le operazioni sono disabilitate finché non la sblocchi.
+                        </div>
+                        {% endif %}
                     </div>
-                    <button type="submit" class="btn btn-danger">Preleva</button>
-                </form>
-                <a href="/transfer" class="btn btn-info">Bonifico</a>
-                <a href="/logout" class="btn btn-secondary">Esci</a>
+                </div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm
-::contentReference[oaicite:0]{index=0}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
