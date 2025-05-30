@@ -149,6 +149,27 @@ def transfer():
 
     return render_template('transfer.html')
 
+@app.route('/recharge_phone', methods=['GET', 'POST'])
+def recharge_phone():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    users = load_users()
+    user = users[session['user']]
+    if user.get('blocked', False):
+        return render_template('message.html', message="Carta bloccata. Operazione non consentita.")
+    if request.method == 'POST':
+        phone_number = request.form['phone_number']
+        amount = float(request.form['amount'])
+        if amount <= 0:
+            return render_template('message.html', message="Importo non valido.")
+        if user['balance'] < amount:
+            return render_template('message.html', message="Saldo insufficiente per la ricarica.")
+        users[session['user']]['balance'] -= amount
+        save_users(users)
+        add_transaction(session['user'], 'Ricarica telefonica', f'Numero: {phone_number}', -amount)
+        return render_template('message.html', message=f"Ricarica di €{amount:.2f} effettuata sul numero {phone_number}.")
+    return render_template('recharge_phone.html')
+
 @app.route('/transactions')
 def transactions():
     if 'user' not in session:
@@ -177,6 +198,34 @@ def block_card():
             message = "Azione non valida."
         user = users[session['user']]
     return render_template('block_card.html', user=user, message=message)
+
+@app.route('/change_pin', methods=['GET', 'POST'])
+def change_pin():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    users = load_users()
+    current_pin = session['user']
+    user = users[current_pin]
+    message = None
+    if request.method == 'POST':
+        old_pin = request.form['old_pin']
+        new_pin = request.form['new_pin']
+        confirm_pin = request.form['confirm_pin']
+        if old_pin != current_pin:
+            message = "PIN attuale errato."
+        elif not new_pin.isdigit() or len(new_pin) != 4:
+            message = "Il nuovo PIN deve essere composto da 4 cifre."
+        elif new_pin != confirm_pin:
+            message = "I PIN non coincidono."
+        elif new_pin in users:
+            message = "Questo PIN è già in uso da un altro utente."
+        else:
+            users[new_pin] = users.pop(current_pin)
+            save_users(users)
+            session['user'] = new_pin
+            message = "PIN cambiato con successo."
+            return render_template('message.html', message=message)
+    return render_template('change_pin.html', user=user, message=message)
 
 @app.route('/logout')
 def logout():
