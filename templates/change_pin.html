@@ -4,13 +4,70 @@
     <meta charset="UTF-8">
     <title>Cambia PIN</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #dee2ff, #edf2fb);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+
+        .card {
+            border: none;
+            border-radius: 24px;
+            background: #f1f5ff;
+            box-shadow: 10px 10px 30px #cbd1e6, -10px -10px 30px #ffffff;
+        }
+
+        .card-header {
+            border-radius: 24px 24px 0 0;
+            background: #fbbf24;
+            color: #1f2937;
+            padding: 1.25rem 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            border: 1px solid #ced4da;
+            padding: 0.65rem 1rem;
+            box-shadow: inset 3px 3px 6px #cbd1e6, inset -3px -3px 6px #ffffff;
+            font-size: 1rem;
+        }
+
+        .btn {
+            border-radius: 14px;
+            padding: 0.75rem 1.2rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(76, 110, 245, 0.2);
+        }
+
+        .alert {
+            border-radius: 12px;
+            box-shadow: 5px 5px 12px rgba(0,0,0,0.05);
+        }
+
+        @media (max-width: 576px) {
+            .card {
+                margin: 1rem;
+            }
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body>
     <div class="container mt-5">
-        <div class="card mx-auto shadow-lg" style="max-width: 400px;">
-            <div class="card-header bg-warning text-dark">
-                <h4 class="mb-0">Cambia PIN</h4>
+        <div class="card mx-auto shadow-lg" style="max-width: 420px;">
+            <div class="card-header">
+                <i class="bi bi-key me-2"></i>Cambia PIN
             </div>
             <div class="card-body">
                 {% if message %}
@@ -29,9 +86,9 @@
                         <label for="confirm_pin" class="form-label">Conferma nuovo PIN</label>
                         <input type="password" class="form-control" id="confirm_pin" name="confirm_pin" maxlength="4" pattern="\d{4}" required>
                     </div>
-                    <button type="submit" class="btn btn-warning w-100">Cambia PIN</button>
+                    <button type="submit" class="btn btn-warning w-100"><i class="bi bi-arrow-repeat"></i> Cambia PIN</button>
                 </form>
-                <a href="{{ url_for('dashboard') }}" class="btn btn-secondary mt-3 w-100">Torna alla dashboard</a>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-secondary mt-3 w-100"><i class="bi bi-arrow-left-circle"></i> Torna alla dashboard</a>
             </div>
         </div>
     </div>

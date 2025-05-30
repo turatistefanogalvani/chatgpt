@@ -7,38 +7,93 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <style>
-        body { background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%); }
+    body {
+        background: linear-gradient(135deg, #dee2ff, #edf2fb);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
+    }
+
+    .card {
+        border: none;
+        border-radius: 24px;
+        background: #f1f5ff;
+        box-shadow: 10px 10px 30px #cbd1e6, -10px -10px 30px #ffffff;
+    }
+
+    .card-header {
+        border-radius: 24px 24px 0 0;
+        background: #4c6ef5;
+        color: white;
+        padding: 1.25rem 1.5rem;
+        font-size: 1.3rem;
+    }
+
+    .saldo-box {
+        background: #e9f0ff;
+        box-shadow: inset 8px 8px 15px #c2cbe5, inset -8px -8px 15px #ffffff;
+        border-radius: 20px;
+        padding: 2rem;
+        font-size: 2rem;
+        font-weight: 600;
+        color: #2b2e4a;
+    }
+
+    .saldo-box i {
+        font-size: 2.2rem;
+        color: #4c6ef5;
+    }
+
+    .status-badge {
+        font-size: 0.9rem;
+        padding: 0.4rem 1rem;
+        border-radius: 30px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn {
+        border-radius: 14px;
+        padding: 0.75rem 1.2rem;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 16px rgba(76, 110, 245, 0.2);
+    }
+
+    .nav-btns .btn {
+        min-width: 180px;
+        font-size: 1rem;
+        margin: 0.4rem;
+    }
+
+    .form-control {
+        border-radius: 12px;
+        border: 1px solid #ced4da;
+        box-shadow: inset 2px 2px 5px #cbd1e6, inset -2px -2px 5px #ffffff;
+    }
+
+    .alert-warning {
+        border-radius: 14px;
+        background-color: #fff3cd;
+        color: #856404;
+        font-size: 0.95rem;
+        box-shadow: 5px 5px 12px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 576px) {
         .saldo-box {
-            font-size: 2.2rem;
-            font-weight: bold;
-            background: #fff;
-            border-radius: 18px;
-            padding: 1.5rem 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-        }
-        .status-badge {
-            font-size: 1rem;
-            padding: 0.5em 1.2em;
-            border-radius: 20px;
-            letter-spacing: 1px;
+            font-size: 1.4rem;
+            padding: 1.2rem;
         }
         .nav-btns .btn {
-            min-width: 170px;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
+            min-width: 100%;
         }
-        .card {
-            border-radius: 18px;
-        }
-        .card-header {
-            border-radius: 18px 18px 0 0;
-        }
-        @media (max-width: 576px) {
-            .saldo-box { font-size: 1.2rem; padding: 1rem; }
-            .nav-btns .btn { min-width: 100%; }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <div class="container py-5">
